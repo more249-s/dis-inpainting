@@ -19,7 +19,7 @@ class PanelV2Cog(commands.Cog):
         # Persistent view for components v2
         self.bot.add_view(self.view)
 
-    # manga_panel command (disabled slash command decorator)
+    @app_commands.command(name="manga_panel", description="فتح لوحة التفاعل المتقدمة لاختيار وتحميل الفصول")
     @vip_only()
     async def manga_panel(self, interaction: discord.Interaction) -> None:
         await interaction.response.send_message(

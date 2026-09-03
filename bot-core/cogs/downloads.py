@@ -106,7 +106,7 @@ class DownloadsCog(commands.Cog):
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
-    # stitch_drive command (disabled slash command decorator)
+    @app_commands.command(name="stitch_drive", description="دمج وقص الصور من مجلد Google Drive")
     @vip_only()
     async def stitch_drive_cmd(
         self,
