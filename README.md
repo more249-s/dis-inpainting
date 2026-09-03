@@ -5,6 +5,7 @@
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Discord.py](https://img.shields.io/badge/Discord.py-v2.3%2B-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://github.com/Rapptz/discord.py)
+[![Slash Commands](https://img.shields.io/badge/Discord-Slash%20Commands-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/developers/docs/interactions/application-commands)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.100%2B-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-CUDA%20Accelerated-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)](https://pytorch.org/)
 [![HuggingFace](https://img.shields.io/badge/HuggingFace-ZeroGPU%20Enabled-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/)
@@ -12,13 +13,14 @@
 
 <br/>
 
-> **نظام متكامل عالي الكفاءة لإدارة، تنزيل، وتبييض فصول المانجا والمانهوا بالذكاء الاصطناعي، يربط بين بوت ديسكورد، لوحة تحكم ويب إدارية، وخوادم معالجة GPU.**
+> **نظام متكامل عالي الكفاءة لإدارة، تنزيل، وتبييض فصول المانجا والمانهوا بالذكاء الاصطناعي، يربط بين بوت ديسكورد يعتمد بالكامل على أوامر السلاش (Slash Commands /)، لوحة تحكم ويب إدارية، وخوادم معالجة GPU.**
 
 ---
 
 [📖 نبذة عن النظام](#-نبذة-عن-النظام) •
 [⚙️ الأقسام الرئيسية](#️-الأقسام-الرئيسية) •
 [🏛️ البنية الهندسية](#️-البنية-الهندسية) •
+[⚡ أوامر السلاش](#-أوامر-السلاش-slash-commands) •
 [🌐 المواقع المدعومة](#-المواقع-المدعومة) •
 [🚀 التشغيل السريع](#-التشغيل-السريع) •
 [📱 لوحة التحكم والأوامر](#-لوحة-التحكم-والأوامر) •
@@ -32,7 +34,7 @@
 
 ## 📖 نبذة عن النظام (System Overview)
 
-منظومة برمجية متطورة مصممة لإدارة وتنزيل وتبييض فصول المانجا والمانهوا الكورية واليابانية والصينية. تعتمد على معمارية الخدمات الدقيقة (**Microservices Architecture**) لضمان أقصى سرعة واستقرار دون استهلاك زائد للموارد.
+منظومة برمجية متطورة مصممة لإدارة وتنزيل وتبييض فصول المانجا والمانهوا الكورية واليابانية والصينية. تعتمد على معمارية الخدمات الدقيقة (**Microservices Architecture**) مع الدعم الكامل والتلقائي لأوامر السلاش (`/`) في ديسكورد عبر `discord.app_commands`.
 
 يتكون المشروع من **قسمين رئيسيين**:
 
@@ -45,7 +47,7 @@
                          ▼                                                   ▼
        ┌───────────────────────────────────┐               ┌───────────────────────────────────┐
        │         🤖 bot-core               │               │       🎨 inpainting-core          │
-       │ ├─ Discord Bot & Slash Commands   │               │ ├─ AI LaMa Inpainting Engine      │
+       │ ├─ Native Discord Slash Commands  │               │ ├─ AI LaMa Inpainting Engine      │
        │ ├─ FastAPI Web Admin Dashboard    │               │ ├─ Hard Mask Text Erase System    │
        │ ├─ 30+ Provider Scrapers Engine   │               │ ├─ FastAPI / Gradio AI Server     │
        │ ├─ HuggingFace Worker Offloader   │               │ └─ ZeroGPU & RTX 6000 Optimized   │
@@ -55,11 +57,30 @@
 
 ---
 
+## ⚡ أوامر السلاش (Discord Slash Commands)
+
+يعتمد البوت بشكل كامل وأساسي على نظام **Slash Commands (`/`)** لتوفير تجربة تفاعلية سلسة وقوائم منسدلة وخيارات إكمال أوتوماتيكي (Autocomplete):
+
+| أمر السلاش | الوظيفة | الصلاحيات |
+| :--- | :--- | :--- |
+| `/download` | تنزيل وتنسيق فصول المانجا/المانهوا مباشرة | للجميع / المشتركين |
+| `/clean_manga` | تنزيل الفصل وتبييضه بالذكاء الاصطناعي عبر الـ GPU | للمشتركين / المشرفين |
+| `/search` | البحث المباشر عن العناوين في المواقع المدعومة | للجميع |
+| `/mytracker` | عرض قائمة المتابعات والرادار الشخصي الخاص بك | للجميع |
+| `/tracker` | إدارة رادار التتبع التلقائي للفصول والاشتراكات | المشرفين |
+| `/extract` | استخراج وتنسيق نصوص الفصول والترجمة | المشتركين |
+| `/help` | قائمة المساعدة وتفاصيل استخدام البوت والخيارات | للجميع |
+| `/panel` / `!panel` | رابط ورسالة الوصول الفوري للوحة تحكم الويب | المشرفين |
+
+> **ملاحظة**: يقوم البوت عند التشغيل تلقائياً بربط وأجتياز تزامن الأوامر (`await bot.tree.sync()`) لظهور جميع أوامر السلاش مباشرة في سيرفرات الديسكورد.
+
+---
+
 ## ⚙️ الأقسام الرئيسية (Core Modules)
 
 ### 1️⃣ قسم الإدارة والتحميل (`bot-core`)
 المحرك الرئيسي والمركز التنفيذي للنظام:
-- **🤖 بوت الديسكورد**: التعامل مع المستخدمين، تنفيـذ أوامر التحميل والتبييض، ونظام رتب واشتراكات متقدم.
+- **🤖 بوت الديسكورد (Slash Commands Native)**: معالجة الأوامر التفاعلية، الخيارات المباشرة، وقوائم الواجهة الجرافيكية (UI Components & Buttons).
 - **💻 لوحة تحكم الويب (Web Admin Panel)**: واجهة مستخدم مبنية بـ FastAPI لعرض الإحصائيات المباشرة، إدارة المشتركين، ضبط المواقع، ومتابعة سجلات النظام الحية.
 - **🔍 محرك Scrapers شامل**: يدعم أكثر من 30+ موقع مانجا مع تجاوز حمايات Cloudflare وتحديات الـ JavaScript.
 - **☁️ مزامنة Google Drive**: رفع الفصول تلقائياً وإنشاء مجلدات وروابط مشاركة مباشرة.
@@ -75,18 +96,18 @@
 
 ## 🏛️ البنية الهندسية وتدفق البيانات (Architecture & Data Flow)
 
-يوضح المخطط التسلسلي كيفية سريان البيانات عند طلب تنزيل وتبييض فصل:
+يوضح المخطط التسلسلي كيفية سريان البيانات عند استخدام أمر السلاش `/clean_manga`:
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor User as 👤 المستخدم / المشرف
-    participant Bot as 🤖 bot-core (Discord / Web)
+    participant Bot as 🤖 bot-core (Slash Command /)
     participant Scraper as 🔍 Providers Scraper
     participant Inpaint as 🎨 inpainting-core (GPU)
     participant Drive as ☁️ Google Drive
 
-    User->>Bot: طلب تحميل وتبييض فصل (!clean <URL>)
+    User->>Bot: إرسال أمر السلاش (/clean_manga url:...)
     Bot->>Scraper: استخراج روابط وجداول صور الفصل
     Scraper-->>Bot: إرجاع روابط الصور المباشرة
     
@@ -126,8 +147,8 @@ sequenceDiagram
 ### 1. استنساخ المشروع (Clone Repository)
 
 ```bash
-git clone https://github.com/your-username/manga-system.git
-cd manga-system
+git clone https://github.com/more249-s/dis-inpainting.git
+cd dis-inpainting
 ```
 
 ---
@@ -178,16 +199,6 @@ python app.py
 - 📈 **إحصائيات مباشرة**: استهلاك الذاكرة، المعالج، والتحميلات النشطة.
 - 👥 **إدارة الأعضاء**: تحديد الرتب والاشتراكات.
 - 🔍 **متابعة السجلات**: مراقبة أداء الخادم والمواقع حياً.
-
-### 🤖 أهم أوامر البوت
-
-| الأمر | الوظيفة | الصلاحية |
-| :--- | :--- | :--- |
-| `!download <رابط>` | تحميل فصل مانجا وتنسيقه | للجميع / المشتركين |
-| `!clean <رابط>` | تحميل الفصل وتبييضه بالذكاء الاصطناعي | للمشتركين / الآدمن |
-| `!track <رابط>` | إضافة المانجا لرادار التتبع التلقائي | المشرفين |
-| `!panel` | رابط مباشر مخصص للوحة تحكم الويب | المشرفين |
-| `!stats` | عرض حالة الخادم وأداء البوت | للجميع |
 
 ---
 
